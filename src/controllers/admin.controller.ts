@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { MemberType } from '../libs/enums/member.enum'
 import { ProductGenre, ProductStatus } from '../libs/enums/product.enum'
+import cloudinary from '../libs/utils/cloudinary'
 import MemberService from '../models/Member.service'
 import OrderService from '../models/Order.service'
 import ProductService from '../models/Product.service'
@@ -81,7 +82,29 @@ class AdminController {
 				productDesc,
 				isRecommended,
 			} = req.body
-			const productImage = req.file ? `/uploads/${req.file.filename}` : ''
+			let productImage = ''
+
+			if (req.file) {
+				const result = await new Promise<any>((resolve, reject) => {
+					const uploadStream = cloudinary.uploader.upload_stream(
+						{
+							folder: 'my-library/books',
+							resource_type: 'image',
+						},
+						(error, result) => {
+							if (error) {
+								reject(error)
+							} else {
+								resolve(result)
+							}
+						},
+					)
+
+					uploadStream.end(req.file!.buffer)
+				})
+
+				productImage = result.secure_url
+			}
 
 			await ProductService.createProduct({
 				productName,
@@ -142,7 +165,25 @@ class AdminController {
 				isRecommended: isRecommended === 'on' || isRecommended === 'true',
 			}
 			if (req.file) {
-				updateData.productImage = `/uploads/${req.file.filename}`
+				const result = await new Promise<any>((resolve, reject) => {
+					const uploadStream = cloudinary.uploader.upload_stream(
+						{
+							folder: 'my-library/books',
+							resource_type: 'image',
+						},
+						(error, result) => {
+							if (error) {
+								reject(error)
+							} else {
+								resolve(result)
+							}
+						},
+					)
+
+					uploadStream.end(req.file!.buffer)
+				})
+
+				updateData.productImage = result.secure_url
 			}
 
 			await ProductService.updateProduct(req.params.id, updateData)
