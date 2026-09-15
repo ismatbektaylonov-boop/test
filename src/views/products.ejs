@@ -1,0 +1,98 @@
+<%- include("includes/header", { pageTitle: "Kitoblar | MyLibrary" , extraCss: "products" }) %>
+
+	<main class="products-container">
+		<%- include("includes/nav", { member, active: "products" }) %>
+
+			<section class="products-dashboard" aria-labelledby="products-title">
+				<header class="catalog-header">
+					<div>
+						<p class="eyebrow">MY LIBRARY KATALOGI</p>
+						<h1 id="products-title">Javonlarni varaqlang.</h1>
+						<p class="catalog-subtitle">Kitob nomi, muallifi va janri bo'yicha qidiring.</p>
+					</div>
+					<div class="catalog-actions">
+						<span class="product-count">
+							<%= products.length %> nom
+						</span>
+						<% if (member && member.memberType==="ADMIN" ) { %>
+							<a href="/admin/products/new" class="primary-action">+ Kitob qo'shish</a>
+							<% } %>
+					</div>
+				</header>
+
+				<form id="searchForm" class="search-bar" method="GET" action="/products">
+					<input type="text" name="search" id="searchInput" placeholder="Kitob nomi yoki muallif bo'yicha qidirish..."
+						value="<%= search %>" />
+					<select name="genre" id="collectionSelect">
+						<option value="">Barcha kategoriyalar</option>
+						<% genres.forEach(function(g) { %>
+							<option value="<%= g %>" <%=genre===g ? "selected" : "" %>><%= g %>
+							</option>
+							<% }) %>
+					</select>
+					<button type="submit" class="secondary-action">Qidirish</button>
+				</form>
+
+				<% if (products.length===0) { %>
+					<section class="empty-catalog" aria-label="Bo'sh katalog">
+						<p class="eyebrow">KATALOG BO'SH</p>
+						<h2>Hech qanday kitob topilmadi.</h2>
+						<p>Qidiruv shartlarini o'zgartiring yoki keyinroq qayta urinib ko'ring.</p>
+					</section>
+					<% } else { %>
+						<section class="product-grid" id="bookGrid" aria-label="Kitoblar katalogi">
+							<% products.forEach(function(p) { %>
+								<article class="product-card" data-id="<%= p._id %>">
+									<div class="product-visual product-visual--with-image">
+										<% if (p.productImage) { %>
+											<img class="product-cover-image" src="<%= p.productImage %>" alt="<%= p.productName %>"
+												loading="lazy" />
+											<% } %>
+												<span>
+													<%= p.productGenre %>
+												</span>
+									</div>
+									<div class="product-card-body">
+										<p class="product-collection">
+											<%= p.productGenre %>
+										</p>
+										<h2>
+											<%= p.productName %>
+										</h2>
+										<p class="product-collection">Muallif: <%= p.productAuthor || "—" %>
+										</p>
+										<div class="product-meta">
+											<span>Holati <strong>
+													<%= p.productStatus==="AVAILABLE" ? "Mavjud" : p.productStatus==="BORROWED" ? "Band"
+														: "Yashirilgan" %>
+												</strong></span>
+										</div>
+										<% if (p.productDesc) { %>
+											<p class="product-description">
+												<%= p.productDesc %>
+											</p>
+											<% } %>
+												<div class="product-card-footer">
+													<% if (member && member.memberType==="USER" ) { %>
+														<button class="primary-action rent-btn" data-id="<%= p._id %>" <%=p.productStatus
+															!=="AVAILABLE" ? "disabled" : "" %>>
+															<%= p.productStatus==="AVAILABLE" ? "Ijaraga olish" : "Mavjud emas" %>
+														</button>
+														<% } else if (!member) { %>
+															<a class="secondary-action" href="/login">Ijaraga olish uchun kiring</a>
+															<% } %>
+																<a class="secondary-action" href="/products/<%= p._id %>">Batafsil</a>
+												</div>
+									</div>
+								</article>
+								<% }) %>
+						</section>
+						<% } %>
+			</section>
+	</main>
+
+	<script src="/js/main.js"></script>
+	<script src="/js/products.js"></script>
+	</body>
+
+	</html>

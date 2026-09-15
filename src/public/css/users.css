@@ -1,0 +1,18 @@
+.users-table {
+	width: 100%;
+	border-collapse: collapse;
+	background: var(--surface);
+}
+.users-table th,
+.users-table td {
+	padding: 10px;
+	border-bottom: 1px solid var(--line);
+	color: var(--ink);
+}
+.users-table th {
+	color: var(--muted);
+	font-size: 0.78rem;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	text-align: left;
+}

@@ -1,0 +1,216 @@
+.orders-container {
+	min-height: 100vh;
+	padding: 28px 5vw 80px;
+	color: #163238;
+	background:
+		radial-gradient(circle at 90% 5%, rgba(14, 116, 144, 0.2), transparent 32%),
+		linear-gradient(135deg, #f2f5f7 0%, #e4edf0 48%, #fafcfd 100%);
+}
+.orders-container .navigation-menu {
+	margin-bottom: clamp(42px, 7vw, 82px);
+}
+.orders-container .nav-link {
+	color: #4a6670;
+}
+.orders-container .nav-link:hover,
+.orders-container .nav-link.active {
+	color: var(--indigo);
+}
+
+.orders-dashboard {
+	margin: 0 auto;
+	width: min(1180px, 100%);
+}
+
+.orders-header {
+	align-items: flex-end;
+	display: flex;
+	gap: 24px;
+	justify-content: space-between;
+	margin-bottom: 28px;
+}
+.orders-header h1 {
+	font-family: 'Fraunces', Georgia, serif;
+	font-size: clamp(2.2rem, 5vw, 3.6rem);
+	font-weight: 500;
+	letter-spacing: -0.02em;
+	line-height: 1.02;
+	margin: 0;
+	color: var(--ink);
+}
+.orders-header p {
+	color: #5c7a83;
+	margin: 14px 0 0;
+	max-width: 480px;
+}
+.orders-header > span {
+	color: #5c7a83;
+	white-space: nowrap;
+}
+
+.status-filters {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-bottom: 26px;
+}
+.status-filters a {
+	background: rgba(255, 255, 255, 0.6);
+	border: 1px solid rgba(14, 116, 144, 0.25);
+	color: #4a6670;
+	font-size: 0.74rem;
+	font-weight: 700;
+	padding: 8px 13px;
+	border-radius: 20px;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+}
+.status-filters a.active,
+.status-filters a:hover {
+	background: linear-gradient(90deg, var(--indigo), var(--amber));
+	border-color: transparent;
+	color: #fff;
+}
+
+.order-grid {
+	display: grid;
+	gap: 18px;
+}
+
+.order-card,
+.empty-orders {
+	background: rgba(14, 116, 144, 0.18);
+	border: 1px solid rgba(14, 116, 144, 0.25);
+	border-radius: 12px;
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+.empty-orders {
+	padding: 60px;
+	text-align: center;
+	color: #5c7a83;
+}
+.empty-orders h2 {
+	font-family: 'Fraunces', Georgia, serif;
+	margin: 0 0 8px;
+	color: var(--ink);
+}
+
+.order-card > header {
+	align-items: center;
+	border-bottom: 1px solid rgba(14, 116, 144, 0.14);
+	display: flex;
+	justify-content: space-between;
+	padding: 18px 22px;
+}
+.order-card header .order-book {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+}
+.order-card header img {
+	width: 46px;
+	height: 64px;
+	object-fit: cover;
+	border-radius: 4px;
+	background: #dceef2;
+}
+.order-card header p {
+	font-family: 'Fraunces', Georgia, serif;
+	font-size: 1.1rem;
+	margin: 0;
+	color: var(--ink);
+}
+.order-card time {
+	color: #5c7a83;
+	font-size: 0.78rem;
+}
+
+.status {
+	font-size: 0.7rem;
+	font-weight: 800;
+	letter-spacing: 0.06em;
+	padding: 7px 11px;
+	border-radius: 20px;
+	text-transform: uppercase;
+}
+.status--pending {
+	background: #fdebd3;
+	color: #92400e;
+}
+.status--approve {
+	background: #d9ead1;
+	color: #33591f;
+}
+.status--reject {
+	background: #f4d9d3;
+	color: #93341f;
+}
+.status--returned {
+	background: #e2dff0;
+	color: #433a75;
+}
+
+.order-meta-row {
+	align-items: center;
+	background: rgba(255, 255, 255, 0.03);
+	border-bottom: 1px solid rgba(14, 116, 144, 0.14);
+	display: flex;
+	gap: 24px;
+	padding: 14px 22px;
+}
+.order-meta-row span {
+	color: #5c7a83;
+	font-size: 0.82rem;
+}
+.order-meta-row strong {
+	color: var(--ink);
+	font-family: 'Fraunces', Georgia, serif;
+}
+
+.order-card > footer {
+	align-items: center;
+	background: rgba(255, 255, 255, 0.03);
+	border-top: 1px solid rgba(14, 116, 144, 0.14);
+	display: flex;
+	justify-content: flex-end;
+	gap: 10px;
+	padding: 14px 22px;
+}
+
+.advance-order {
+	background: linear-gradient(90deg, var(--indigo), var(--amber));
+	border: 0;
+	color: #fff;
+	cursor: pointer;
+	font-size: 0.75rem;
+	font-weight: 800;
+	letter-spacing: 0.04em;
+	padding: 10px 16px;
+	border-radius: 4px;
+	text-transform: uppercase;
+}
+.advance-order.reject-btn {
+	background: transparent;
+	border: 1px solid #dc2626;
+	color: #dc2626;
+}
+.advance-order:disabled {
+	cursor: wait;
+	opacity: 0.55;
+}
+
+@media (max-width: 650px) {
+	.orders-container {
+		padding: 20px 16px 48px;
+	}
+	.orders-header {
+		align-items: flex-start;
+		flex-direction: column;
+	}
+	.order-card > header,
+	.order-meta-row,
+	.order-card > footer {
+		padding-left: 16px;
+		padding-right: 16px;
+	}
+}

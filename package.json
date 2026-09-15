@@ -1,0 +1,30 @@
+{
+	"name": "my-library-project",
+	"version": "1.0.0",
+	"description": "Shaxsiy kutubxona sayti - backend (TypeScript + Express + MongoDB)",
+	"main": "dist/app.js",
+	"scripts": {
+		"dev": "ts-node-dev --respawn --transpile-only src/app.ts",
+		"build": "tsc && node scripts/copy-assets.js",
+		"start": "node dist/app.js"
+	},
+	"dependencies": {
+		"bcryptjs": "^2.4.3",
+		"connect-mongo": "^5.1.0",
+		"dotenv": "^16.4.5",
+		"ejs": "^3.1.10",
+		"express": "^4.19.2",
+		"express-session": "^1.18.0",
+		"mongoose": "^8.5.0",
+		"multer": "^1.4.5-lts.1"
+	},
+	"devDependencies": {
+		"@types/bcryptjs": "^2.4.6",
+		"@types/express": "^4.17.21",
+		"@types/express-session": "^1.18.0",
+		"@types/multer": "^1.4.11",
+		"@types/node": "^20.14.10",
+		"ts-node-dev": "^2.0.0",
+		"typescript": "^5.5.3"
+	}
+}

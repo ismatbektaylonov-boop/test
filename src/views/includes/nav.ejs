@@ -1,0 +1,16 @@
+<nav class="navigation-menu" aria-label="Asosiy navigatsiya">
+	<ul>
+		<li><a class="nav-link <%= active === 'home' ? 'active' : '' %>" href="/">Bosh sahifa</a></li>
+		<li><a class="nav-link <%= active === 'products' ? 'active' : '' %>" href="/products">Kitoblar</a></li>
+		<% if (member) { %>
+			<li><a class="nav-link <%= active === 'orders' ? 'active' : '' %>" href="/orders">Mening ijaralarim</a></li>
+			<% if (member.memberType==='ADMIN' ) { %>
+				<li><span class="admin-pill">ADMIN</span></li>
+				<% } %>
+					<li><a class="nav-link" href="/logout">Chiqish</a></li>
+					<% } else { %>
+						<li><a class="nav-link <%= active === 'login' ? 'active' : '' %>" href="/login">Kirish</a></li>
+						<li><a class="nav-link <%= active === 'signup' ? 'active' : '' %>" href="/signup">Ro'yxatdan o'tish</a></li>
+						<% } %>
+	</ul>
+</nav>

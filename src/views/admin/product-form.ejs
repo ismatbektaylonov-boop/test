@@ -1,0 +1,99 @@
+<%- include("../includes/header", { pageTitle: (product ? "Kitobni tahrirlash" : "Yangi kitob" ) + " | MyLibrary" ,
+  extraCss: "products" }) %>
+
+  <main class="products-container">
+    <%- include("../includes/nav", { member, active: "products" }) %>
+
+      <section class="products-dashboard" aria-labelledby="edit-title">
+        <a href="<%= product ? '/products/' + product._id : '/admin' %>" class="back-link">&larr; Orqaga qaytish</a>
+
+        <div class="product-form-panel">
+          <div class="form-panel-heading">
+            <h2 id="edit-title">
+              <%= product ? "Kitobni tahrirlash" : "Yangi kitob qo'shish" %>
+            </h2>
+          </div>
+
+          <% if (error) { %>
+            <p class="form-error">
+              <%= error %>
+            </p>
+            <% } %>
+
+              <form method="POST" action="<%= product ? '/admin/products/' + product._id : '/admin/products' %>"
+                enctype="multipart/form-data">
+                <div class="form-grid form-grid--name">
+                  <label class="form-field">Kitob nomi *
+                    <input type="text" name="productName" value="<%= product ? product.productName : '' %>" required />
+                  </label>
+                </div>
+
+                <div class="form-grid">
+                  <label class="form-field">Muallif
+                    <input type="text" name="productAuthor" value="<%= product ? product.productAuthor : '' %>" />
+                  </label>
+                  <label class="form-field">Janr *
+                    <select name="productGenre" required>
+                      <% genres.forEach(function(g) { %>
+                        <option value="<%= g %>" <%=product && product.productGenre===g ? "selected" : "" %>>
+                          <%= g %>
+                        </option>
+                        <% }); %>
+                    </select>
+                  </label>
+                </div>
+
+                <label class="form-field">Kitob haqida ma'lumot
+                  <textarea name="productDesc" rows="5"><%= product ? product.productDesc : '' %></textarea>
+                </label>
+
+                <label class="form-field form-field--checkbox">
+                  <input type="checkbox" name="isRecommended" <%=product && product.isRecommended ? "checked" : "" %> />
+                  <span>⭐ "Mening tavsiyalarim" bo'limida ko'rsatilsin</span>
+                </label>
+
+                <fieldset class="product-images-fieldset">
+                  <legend>Muqova rasmi
+                    <% if (product && product.productImage) { %>
+                      (hozirgi rasm bor, almashtirish uchun yangisini tanlang)
+                      <% } %>
+                  </legend>
+                  <label class="upload-slot <%= product && product.productImage ? 'has-file' : '' %>">
+                    <input type="file" name="productImage" accept="image/*" <%=product ? "" : "required" %> />
+                    <span class="upload-slot-icon">+</span>
+                    <span class="upload-slot-name">
+                      <%= product && product.productImage ? "Rasmni almashtirish" : "Rasm tanlang" %>
+                    </span>
+                  </label>
+                  <% if (product && product.productImage) { %>
+                    <img src="<%= product.productImage %>" alt=""
+                      style="width:84px;height:118px;object-fit:cover;border-radius:6px;margin-top:12px;display:block;box-shadow:0 8px 18px rgba(0,0,0,0.3);" />
+                    <% } %>
+                </fieldset>
+
+                <% if (product) { %>
+                  <label class="form-field">Holati
+                    <select name="productStatus">
+                      <option value="AVAILABLE" <%=product.productStatus==="AVAILABLE" ? "selected" : "" %>>Mavjud
+                      </option>
+                      <option value="BORROWED" <%=product.productStatus==="BORROWED" ? "selected" : "" %>>Band</option>
+                      <option value="HIDDEN" <%=product.productStatus==="HIDDEN" ? "selected" : "" %>>Yashirilgan
+                      </option>
+                    </select>
+                  </label>
+                  <% } %>
+
+                    <div class="form-actions">
+                      <button type="submit" class="primary-action">
+                        <%= product ? "Saqlash" : "Qo'shish" %>
+                      </button>
+                    </div>
+              </form>
+        </div>
+      </section>
+  </main>
+
+  <script src="/js/main.js"></script>
+  </body>
+
+  </html>

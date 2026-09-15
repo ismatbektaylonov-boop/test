@@ -1,0 +1,57 @@
+<%- include("includes/header", { pageTitle: "Ro'yxatdan o'tish | MyLibrary" , extraCss: "signup" }) %>
+
+  <main class="signup-container">
+    <div class="auth-nova" data-auth-nova aria-hidden="true"></div>
+
+    <div class="signup-frame">
+      <a href="/" class="brand">
+        <span class="brand-mark">M</span>
+        MyLibrary
+      </a>
+      <p class="eyebrow">YANGI A'ZOLIK</p>
+      <h1>Kutubxonaga qo'shiling.</h1>
+      <p class="intro">Bir daqiqada ro'yxatdan o'ting va kitoblarni ijaraga olishni boshlang.</p>
+
+      <% if (typeof error !=="undefined" && error) { %>
+        <div id="formError" class="form-error">
+          <%= error %>
+        </div>
+        <% } else { %>
+          <div id="formError" class="form-error" style="display:none;"></div>
+          <% } %>
+
+            <form id="signupForm" method="POST" action="/signup">
+              <div class="sign-input-frame">
+                <div class="sign-up-frame">
+                  <label for="memberName">To'liq ism</label>
+                  <input type="text" id="memberName" name="memberName" required placeholder="Ism Familiya" />
+                </div>
+                <div class="sign-up-frame">
+                  <label for="memberEmail">Email</label>
+                  <input type="email" id="memberEmail" name="memberEmail" required placeholder="siz@example.com" />
+                </div>
+              </div>
+              <div class="sign-input-frame">
+                <div class="sign-up-frame">
+                  <label for="memberPhone">Telefon raqam</label>
+                  <input type="text" id="memberPhone" name="memberPhone" required placeholder="+998901234567" />
+                </div>
+                <div class="sign-up-frame">
+                  <label for="memberPassword">Parol</label>
+                  <input type="password" id="memberPassword" name="memberPassword" required
+                    placeholder="Parol yarating" />
+                </div>
+              </div>
+
+              <button type="submit" class="signup-btn">Ro'yxatdan o'tish</button>
+            </form>
+
+            <p class="signup-footer">Akkountingiz bormi? <a href="/login">Kiring</a></p>
+    </div>
+  </main>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/signup.js"></script>
+  </body>
+
+  </html>

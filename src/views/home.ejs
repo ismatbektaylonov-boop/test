@@ -1,0 +1,104 @@
+<%- include("includes/header", { pageTitle: "Bosh sahifa | MyLibrary" , extraCss: "home" }) %>
+
+  <main class="home-container">
+    <div class="home-particles" data-home-particles aria-hidden="true"></div>
+
+    <%- include("includes/nav", { member, active: "home" }) %>
+
+      <section class="home-content" aria-labelledby="home-title">
+        <div class="home-intro">
+          <p class="home-kicker">MY LIBRARY</p>
+          <h1 id="home-title">Har bir kitob<br />o'z o'quvchisini<br />kutmoqda.</h1>
+          <p class="home-description">
+            Ro'yxatdan o'ting, yoqqan kitobingizni tanlang va ijaraga so'rov yuboring —
+            qolganini biz hal qilamiz.
+          </p>
+          <a class="home-cta" href="/products">Javonlarni ko'rish</a>
+
+          <div class="home-stats">
+            <div class="home-stat">
+              <strong>
+                <%= stats.totalBooks %>
+              </strong>
+              <span>nomdagi kitob</span>
+            </div>
+            <div class="home-stat">
+              <strong>
+                <%= stats.currentlyBorrowed %>
+              </strong>
+              <span>hozir o'qilmoqda</span>
+            </div>
+            <div class="home-stat">
+              <strong>
+                <%= stats.totalMembers %>
+              </strong>
+              <span>a'zo</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="library-hero-frame">
+          <div class="library-hero-shelf">
+            <% products.slice(0, 4).forEach(function(p, i) { %>
+              <img src="<%= p.productImage %>" alt="<%= p.productName %>" class="library-hero-cover cover-<%= i %>" />
+              <% }); %>
+          </div>
+        </div>
+      </section>
+      <% if (recommended && recommended.length) { %>
+        <section class="recommend-section" aria-labelledby="recommend-title">
+          <div class="recommend-head">
+            <p class="eyebrow">SHAXSAN TAVSIYA QILAMAN</p>
+            <h2 id="recommend-title">Mening tavsiyalarim</h2>
+          </div>
+          <div class="recommend-marquee">
+            <div class="recommend-track">
+              <% [recommended, recommended].forEach(function(list) { %>
+                <% list.forEach(function(p) { %>
+                  <a href="/products/<%= p._id %>" class="recommend-card">
+                    <div class="recommend-cover">
+                      <% if (p.productImage) { %>
+                        <img src="<%= p.productImage %>" alt="<%= p.productName %>" loading="lazy" />
+                        <% } %>
+                          <span class="recommend-ribbon">★ Tavsiya</span>
+                    </div>
+                    <p class="recommend-title-text">
+                      <%= p.productName %>
+                    </p>
+                  </a>
+                  <% }); %>
+                    <% }); %>
+            </div>
+          </div>
+        </section>
+        <% } %>
+          <section class="arrivals" aria-labelledby="arrivals-title">
+            <div class="arrivals-head">
+              <p class="eyebrow">YANGI QO'SHILGAN</p>
+              <h2 id="arrivals-title">Kutubxona javonidan</h2>
+              <a href="/products" class="arrivals-link">Barchasini ko'rish →</a>
+            </div>
+            <div class="arrivals-row">
+              <% products.forEach(function(p) { %>
+                <a href="/products?search=<%= encodeURIComponent(p.productName) %>" class="arrival-book">
+                  <img src="<%= p.productImage %>" alt="<%= p.productName %>" />
+                  <span class="arrival-title">
+                    <%= p.productName %>
+                  </span>
+                  <span class="arrival-author">
+                    <%= p.productAuthor %>
+                  </span>
+                </a>
+                <% }); %>
+                  <% if (products.length===0) { %>
+                    <p class="empty-note">Hozircha kitoblar mavjud emas.</p>
+                    <% } %>
+            </div>
+          </section>
+  </main>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/home.js"></script>
+  </body>
+
+  </html>

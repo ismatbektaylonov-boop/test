@@ -1,0 +1,152 @@
+:root {
+	--indigo: #0e7490;
+	--indigo-deep: #0b5568;
+	--amber: #22a6c2;
+	--amber-deep: #0e7490;
+	--canvas: #f2f5f7;
+	--paper: #f2f5f7;
+	--surface: #ffffff;
+	--ink: #163238;
+	--muted: #5c7a83;
+	--line: #dce6ea;
+}
+
+html,
+body {
+	padding: 0;
+	margin: 0;
+	height: 100%;
+	width: 100%;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+	color: var(--ink);
+	line-height: 1.5;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+/* ===== Shared editorial nav ===== */
+.navigation-menu {
+	font-family: 'IBM Plex Mono', 'Courier New', monospace;
+}
+
+.navigation-menu ul {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 26px;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	flex-wrap: wrap;
+}
+
+.nav-link {
+	font-size: 0.85rem;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	transition: color 160ms ease;
+	border: 1px solid rgba(14, 116, 144, 0.15);
+	padding: 6px;
+	border-radius: 5px;
+}
+
+.admin-pill {
+	background: var(--amber);
+	color: #201404;
+	font-family: 'Inter', sans-serif;
+	font-weight: 700;
+	font-size: 0.68rem;
+	letter-spacing: 0.06em;
+	padding: 4px 9px;
+	border-radius: 20px;
+	text-transform: uppercase;
+}
+
+/* ===== Shared eyebrow label ===== */
+.eyebrow {
+	margin: 0 0 10px;
+	color: var(--amber-deep);
+	font-size: 0.72rem;
+	font-weight: 800;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+}
+
+/* ===== Shared buttons ===== */
+.primary-action,
+.secondary-action {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	min-height: 46px;
+	padding: 0 20px;
+	border-radius: 4px;
+	font-weight: 700;
+	font-size: 0.92rem;
+	letter-spacing: 0.01em;
+	cursor: pointer;
+	border: 0;
+	font: inherit;
+	transition:
+		transform 160ms ease,
+		background-color 160ms ease;
+}
+
+.primary-action {
+	color: #fff;
+	background: linear-gradient(90deg, var(--indigo), var(--amber));
+	box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+	border: 1px solid #0b5568;
+}
+.primary-action:hover {
+	filter: brightness(1.1);
+	transform: translateY(-1px);
+}
+.primary-action span {
+	font-size: 1.3rem;
+	font-weight: 400;
+	line-height: 0;
+}
+
+.secondary-action {
+	border: 1px solid rgba(14, 116, 144, 0.45);
+	color: var(--ink);
+	background: transparent;
+}
+.secondary-action:hover {
+	background: rgba(14, 116, 144, 0.1);
+}
+
+.status-tag {
+	padding: 3px 10px;
+	border-radius: 12px;
+	font-size: 0.78rem;
+	font-weight: 700;
+}
+.status-PENDING {
+	background: #fdebd3;
+	color: #92400e;
+}
+.status-APPROVE {
+	background: #d9ead1;
+	color: #33591f;
+}
+.status-REJECT {
+	background: #f4d9d3;
+	color: #93341f;
+}
+.status-RETURNED {
+	background: #e2dff0;
+	color: #433a75;
+}

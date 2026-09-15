@@ -1,0 +1,75 @@
+<%- include("../includes/header", { pageTitle: "So'rovlar | MyLibrary" , extraCss: "orders" }) %>
+
+  <main class="orders-container">
+    <%- include("../includes/nav", { member, active: "orders" }) %>
+
+      <section class="orders-dashboard" aria-labelledby="orders-title">
+        <header class="orders-header">
+          <div>
+            <p class="eyebrow">SO'ROVLARNI BOSHQARISH</p>
+            <h1 id="orders-title">Kelib tushgan so'rovlar.</h1>
+            <p>A'zolardan kelayotgan ijara so'rovlarini tasdiqlang, rad eting yoki qaytarilganini belgilang.</p>
+          </div>
+          <span>
+            <%= orders.length %> ta buyurtma
+          </span>
+        </header>
+
+        <div class="order-grid">
+          <% if (orders.length===0) { %>
+            <div class="empty-orders">
+              <h2>So'rovlar topilmadi</h2>
+              <p>Hozircha hech qanday ijara so'rovi kelmagan.</p>
+            </div>
+            <% } else { %>
+              <% orders.forEach(function(order) { %>
+                <article class="order-card">
+                  <header>
+                    <div class="order-book">
+                      <% if (order.orderProductId && order.orderProductId.productImage) { %>
+                        <img src="<%= order.orderProductId.productImage %>"
+                          alt="<%= order.orderProductId.productName %>" />
+                        <% } %>
+                          <p>
+                            <%= order.orderProductId ? order.orderProductId.productName : "O'chirilgan kitob" %>
+                          </p>
+                    </div>
+                    <span class="status status--<%= order.orderStatus.toLowerCase() %>">
+                      <%= order.orderStatus %>
+                    </span>
+                  </header>
+                  <div class="order-meta-row">
+                    <span>A'zo: <strong>
+                        <%= order.orderMemberId ? order.orderMemberId.memberName : "Noma'lum" %>
+                      </strong></span>
+                    <span>So'rov sanasi: <strong>
+                        <%= new Date(order.createdAt).toLocaleDateString("uz-UZ") %>
+                      </strong></span>
+                  </div>
+                  <% if (order.orderStatus==="PENDING" ) { %>
+                    <footer>
+                      <form method="POST" action="/admin/orders/<%= order._id %>/approve">
+                        <button type="submit" class="advance-order">Tasdiqlash</button>
+                      </form>
+                      <form method="POST" action="/admin/orders/<%= order._id %>/reject">
+                        <button type="submit" class="advance-order reject-btn">Rad etish</button>
+                      </form>
+                    </footer>
+                    <% } else if (order.orderStatus==="APPROVED" ) { %>
+                      <footer>
+                        <form method="POST" action="/admin/orders/<%= order._id %>/return">
+                          <button type="submit" class="advance-order">Qaytarildi deb belgilash</button>
+                        </form>
+                      </footer>
+                      <% } %>
+                </article>
+                <% }); %>
+                  <% } %>
+        </div>
+      </section>
+  </main>
+
+  <script src="/js/main.js"></script>
+  </body>
+
+  </html>

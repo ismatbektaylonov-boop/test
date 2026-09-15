@@ -1,0 +1,67 @@
+<%- include("includes/header", { pageTitle: product.productName + " | MyLibrary" , extraCss: "product-detail" }) %>
+
+	<main class="detail-container">
+		<%- include("includes/nav", { member, active: "products" }) %>
+
+			<section class="detail-wrap" aria-labelledby="detail-title">
+				<a href="/products" class="back-link">&larr; Barcha kitoblarga qaytish</a>
+
+				<div class="detail-grid">
+					<div class="detail-cover">
+						<% if (product.productImage) { %>
+							<img src="<%= product.productImage %>" alt="<%= product.productName %>" />
+							<% } else { %>
+								<div class="detail-cover-placeholder">📖</div>
+								<% } %>
+									<span class="detail-status detail-status--<%= product.productStatus.toLowerCase() %>">
+										<%= product.productStatus==="AVAILABLE" ? "Mavjud" : product.productStatus==="BORROWED" ? "Band" :
+											product.productStatus %>
+									</span>
+					</div>
+
+					<div class="detail-info">
+						<p class="eyebrow">
+							<%= product.productGenre %>
+						</p>
+						<h1 id="detail-title">
+							<%= product.productName %>
+						</h1>
+						<p class="detail-author">
+							<%= product.productAuthor ? "Muallif: " + product.productAuthor : "Muallif noma'lum" %>
+						</p>
+
+						<div class="detail-desc">
+							<% if (product.productDesc) { %>
+								<p>
+									<%= product.productDesc %>
+								</p>
+								<% } else { %>
+									<p class="detail-desc-empty">Bu kitob haqida hali tavsif qo'shilmagan.</p>
+									<% } %>
+						</div>
+
+						<div class="detail-actions">
+							<% if (member && member.memberType==="USER" ) { %>
+								<button class="primary-action rent-btn" data-id="<%= product._id %>" <%=product.productStatus
+									!=="AVAILABLE" ? "disabled" : "" %>
+									>
+									<%= product.productStatus !=="AVAILABLE" ? "Hozircha mavjud emas" : "Ijaraga olish" %>
+								</button>
+								<% } else if (!member) { %>
+									<a href="/login" class="primary-action">Ijaraga olish uchun kiring</a>
+									<% } %>
+
+										<% if (member && member.memberType==="ADMIN" ) { %>
+											<a href="/admin/products/<%= product._id %>/edit" class="secondary-action">Tahrirlash</a>
+											<% } %>
+						</div>
+					</div>
+				</div>
+			</section>
+	</main>
+
+	<script src="/js/main.js"></script>
+	<script src="/js/products.js"></script>
+	</body>
+
+	</html>

@@ -1,0 +1,67 @@
+<%- include("includes/header", { pageTitle: "Ijaralarim | MyLibrary" , extraCss: "orders" }) %>
+
+  <main class="orders-container">
+    <%- include("includes/nav", { member, active: "orders" }) %>
+
+      <section class="orders-dashboard" aria-labelledby="orders-title">
+        <header class="orders-header">
+          <div>
+            <p class="eyebrow">
+              <%= member.memberType==="ADMIN" ? "SO'ROVLARNI BOSHQARISH" : "MENING TARIXIM" %>
+            </p>
+            <h1 id="orders-title">
+              <%= member.memberType==="ADMIN" ? "Kelib tushgan so'rovlar." : "Ijaralarim va so'rovlarim." %>
+            </h1>
+            <p>
+              <%= member.memberType==="ADMIN"
+                ? "A'zolardan kelayotgan ijara so'rovlarini tasdiqlang, rad eting yoki qaytarilganini belgilang."
+                : "So'ragan va o'qiyotgan kitoblaringiz tarixi shu yerda." %>
+            </p>
+          </div>
+          <span id="ordersCount">
+            <%= orders.length %> ta buyurtma
+          </span>
+        </header>
+
+        <div class="order-grid" id="orderGrid">
+          <% if (orders.length===0) { %>
+            <div class="empty-orders">
+              <h2>So'rovlar topilmadi</h2>
+              <p>Hozircha hech qanday ijara so'rovi yubormagansiz.</p>
+            </div>
+            <% } else { %>
+              <% orders.forEach(function(order) { %>
+                <article class="order-card">
+                  <header>
+                    <div class="order-book">
+                      <% if (order.orderProductId && order.orderProductId.productImage) { %>
+                        <img src="<%= order.orderProductId.productImage %>"
+                          alt="<%= order.orderProductId.productName %>" />
+                        <% } %>
+                          <p>
+                            <%= order.orderProductId ? order.orderProductId.productName : "O'chirilgan kitob" %>
+                          </p>
+                    </div>
+                    <span class="status status--<%= order.orderStatus.toLowerCase() %>">
+                      <%= order.orderStatus %>
+                    </span>
+                  </header>
+                  <div class="order-meta-row">
+                    <span>So'rov sanasi: <strong>
+                        <%= new Date(order.createdAt).toLocaleDateString("uz-UZ") %>
+                      </strong></span>
+                  </div>
+                </article>
+                <% }); %>
+                  <% } %>
+        </div>
+      </section>
+  </main>
+
+  <script>
+    window.CURRENT_MEMBER_TYPE = "<%= member.memberType %>";
+  </script>
+  <script src="/js/main.js"></script>
+  </body>
+
+  </html>
