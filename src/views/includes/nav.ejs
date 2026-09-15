@@ -5,6 +5,7 @@
 		<% if (member) { %>
 			<li><a class="nav-link <%= active === 'orders' ? 'active' : '' %>" href="/orders">Mening ijaralarim</a></li>
 			<% if (member.memberType==='ADMIN' ) { %>
+				<li><a class="nav-link <%= active === 'admin-orders' ? 'active' : '' %>" href="/admin/orders">So'rovlar</a></li>
 				<li><span class="admin-pill">ADMIN</span></li>
 				<% } %>
 					<li><a class="nav-link" href="/logout">Chiqish</a></li>
