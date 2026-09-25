@@ -2,12 +2,17 @@ import { Router, Request, Response, NextFunction } from "express";
 import AdminController from "./controllers/admin.controller";
 import { uploader } from "./libs/utils/uploader";
 import { MemberType } from "./libs/enums/member.enum";
+import { MemberStatus } from "./libs/enums/member.enum";
 
 const router = Router();
 
 // Faqat ADMIN kira oladigan sahifalar uchun himoya
 function requireAdmin(req: Request, res: Response, next: NextFunction) {
-  if (req.session.member && req.session.member.memberType === MemberType.ADMIN) {
+  if (
+    req.session.member &&
+    req.session.member.memberType === MemberType.ADMIN &&
+    req.session.member.memberStatus === MemberStatus.ACTIVE
+  ) {
     return next();
   }
   return res.redirect("/admin/login");

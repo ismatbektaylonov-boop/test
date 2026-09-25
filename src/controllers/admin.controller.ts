@@ -26,12 +26,16 @@ class AdminController {
 					error: 'Bu hisob admin emas.',
 				})
 			}
+			await new Promise<void>((resolve, reject) => {
+				req.session.regenerate((err) => (err ? reject(err) : resolve()))
+			})
 
 			req.session.member = {
 				_id: String(member._id),
 				memberName: member.memberName,
 				memberEmail: member.memberEmail,
 				memberType: member.memberType,
+					memberStatus: member.memberStatus,
 			}
 			res.redirect('/admin')
 		} catch (err: any) {

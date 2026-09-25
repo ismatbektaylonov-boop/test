@@ -12,7 +12,18 @@ import adminRouter from './router.admin'
 
 const app = express()
 const PORT = process.env.PORT || 8015
-const MONGODB_URI = process.env.MONGODB_URI as string
+const isProduction = process.env.NODE_ENV === 'production'
+
+function requiredEnv(name: string): string {
+	const value = process.env[name]
+	if (!value) throw new Error(`Missing required environment variable: ${name}`)
+	return value
+}
+
+const MONGODB_URI = requiredEnv('MONGODB_URI')
+const SESSION_SECRET = requiredEnv('SESSION_SECRET')
+const ADMIN_EMAIL = requiredEnv('ADMIN_EMAIL')
+const ADMIN_PASSWORD = requiredEnv('ADMIN_PASSWORD')
 
 // ==================== VIEW ENGINE ====================
 app.set('view engine', 'ejs')
@@ -26,11 +37,16 @@ app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')))
 
 app.use(
 	session({
-		secret: process.env.SESSION_SECRET || 'kutubxona-maxfiy-kalit',
+		secret: SESSION_SECRET,
 		resave: false,
 		saveUninitialized: false,
 		store: MongoStore.create({ mongoUrl: MONGODB_URI }),
-		cookie: { maxAge: 1000 * 60 * 60 * 24 * 7 }, // 7 kun
+		cookie: {
+			maxAge: 1000 * 60 * 60 * 24 * 7,
+			httpOnly: true,
+			secure: isProduction,
+			sameSite: 'lax',
+		},
 	}),
 )
 
@@ -61,8 +77,8 @@ async function bootstrap() {
 		// Birinchi marta ishga tushirishda admin hisobini avtomatik yaratib qo'yamiz
 		// (email/parolni albatta .env yoki shu yerda o'zingizga moslang)
 		await MemberService.createAdminIfNotExists(
-			process.env.ADMIN_EMAIL || 'admin@kutubxona.uz',
-			process.env.ADMIN_PASSWORD || 'admin123',
+			ADMIN_EMAIL,
+			ADMIN_PASSWORD,
 			'Kutubxona Admin',
 		)
 

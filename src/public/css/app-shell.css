@@ -1,0 +1,343 @@
+/* ===== Yangi dizayn tokenlari (krem + yashil) ===== */
+:root {
+	--av-bg: #f7f3ec;
+	--av-sidebar-bg: #f2ece0;
+	--av-card: #ffffff;
+	--av-ink: #2b2620;
+	--av-muted: #8a8175;
+	--av-green: #2f4b3c;
+	--av-green-soft: #e5ece6;
+	--av-amber: #b8763e;
+	--av-border: #e8e1d1;
+}
+
+.app-shell {
+	display: flex;
+	min-height: 100vh;
+	background: var(--av-bg);
+	color: var(--av-ink);
+	font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+/* ===== SIDEBAR ===== */
+.app-sidebar {
+	width: 258px;
+	flex-shrink: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 28px;
+	padding: 26px 18px;
+	background: var(--av-sidebar-bg);
+	border-right: 1px solid var(--av-border);
+}
+
+.app-brand {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 0 6px;
+}
+.app-brand-icon {
+	width: 40px;
+	height: 40px;
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #fff;
+	border: 1px solid var(--av-border);
+	border-radius: 10px;
+	font-size: 1.2rem;
+}
+.app-brand-text {
+	display: flex;
+	flex-direction: column;
+	line-height: 1.2;
+}
+.app-brand-text strong {
+	font-family: 'Fraunces', Georgia, serif;
+	font-size: 1.02rem;
+	color: var(--av-ink);
+}
+.app-brand-text small {
+	color: var(--av-muted);
+	font-size: 0.7rem;
+	letter-spacing: 0.03em;
+}
+
+.app-sidebar-nav {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+.app-nav-item {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 10px 12px;
+	border-radius: 8px;
+	color: var(--av-ink);
+	font-size: 0.9rem;
+	font-weight: 500;
+}
+.app-nav-item:hover {
+	background: rgba(47, 75, 60, 0.06);
+}
+.app-nav-item.is-active {
+	background: var(--av-green-soft);
+	color: var(--av-green);
+	font-weight: 700;
+}
+.app-nav-icon {
+	font-size: 1rem;
+	width: 20px;
+	text-align: center;
+}
+
+.app-sidebar-stats {
+	padding: 16px;
+	background: var(--av-card);
+	border: 1px solid var(--av-border);
+	border-radius: 12px;
+}
+.app-stats-head {
+	display: flex;
+	justify-content: space-between;
+	font-size: 0.76rem;
+	color: var(--av-muted);
+	margin-bottom: 8px;
+}
+.app-stats-head a {
+	color: var(--av-green);
+}
+.app-stats-big {
+	font-family: 'Fraunces', Georgia, serif;
+	font-size: 2rem;
+	color: var(--av-ink);
+	line-height: 1;
+}
+.app-stats-label {
+	color: var(--av-muted);
+	font-size: 0.78rem;
+	margin: 4px 0 12px;
+}
+.app-stats-row {
+	display: flex;
+	gap: 18px;
+	padding-top: 12px;
+	border-top: 1px solid var(--av-border);
+}
+.app-stats-row strong {
+	display: block;
+	font-family: 'Fraunces', Georgia, serif;
+	font-size: 1.15rem;
+}
+.app-stats-row span {
+	color: var(--av-muted);
+	font-size: 0.72rem;
+}
+
+.app-sidebar-quick {
+	padding: 4px 6px;
+}
+.app-quick-head {
+	color: var(--av-muted);
+	font-size: 0.72rem;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	margin-bottom: 8px;
+}
+.app-quick-item {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 8px 6px;
+	font-size: 0.86rem;
+	color: var(--av-ink);
+}
+.app-quick-item:hover {
+	color: var(--av-green);
+}
+
+.app-sidebar-footer {
+	padding: 22px 16px;
+	border-radius: 12px;
+	height: 230px;
+	background:
+		linear-gradient(180deg, rgba(22, 36, 28, 0.35), rgba(22, 36, 28, 0.85)),
+		url('/img/sidebar.jpg') center/cover no-repeat;
+	color: #eee7d8;
+	font-family: 'Fraunces', Georgia, serif;
+	font-style: italic;
+	font-size: 0.92rem;
+	line-height: 1.4;
+}
+.app-sidebar-footer1 {
+	padding: 22px 16px;
+	border-radius: 12px;
+	height: 230px;
+	background:
+		linear-gradient(180deg, rgba(22, 36, 28, 0.35), rgba(22, 36, 28, 0.85)),
+		url('/img/sidebar1.jpg') center/cover no-repeat;
+	color: #eee7d8;
+	font-family: 'Fraunces', Georgia, serif;
+	font-style: italic;
+	font-size: 0.92rem;
+	line-height: 1.4;
+}
+.app-sidebar-footer2 {
+	padding: 22px 16px;
+	border-radius: 12px;
+	height: 230px;
+	background:
+		linear-gradient(180deg, rgba(22, 36, 28, 0.35), rgba(22, 36, 28, 0.85)),
+		url('/img/sidebar2.jpg') center/cover no-repeat;
+	color: #eee7d8;
+	font-family: 'Fraunces', Georgia, serif;
+	font-style: italic;
+	font-size: 0.92rem;
+	line-height: 1.4;
+}
+/* ===== TOPBAR ===== */
+.app-main {
+	flex: 1;
+	min-width: 0;
+	padding: 22px 32px 60px;
+}
+
+.app-topbar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 20px;
+	margin-bottom: 22px;
+}
+
+.app-search {
+	flex: 1;
+	max-width: 560px;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	background: var(--av-card);
+	border: 1px solid var(--av-border);
+	border-radius: 999px;
+	padding: 11px 16px;
+}
+.app-search input {
+	flex: 1;
+	border: 0;
+	outline: none;
+	background: transparent;
+	font: inherit;
+	font-size: 0.88rem;
+	color: var(--av-ink);
+}
+.app-search-icon {
+	color: var(--av-muted);
+}
+.app-search-kbd {
+	font-family: 'IBM Plex Mono', monospace;
+	font-size: 0.72rem;
+	color: var(--av-muted);
+	background: var(--av-bg);
+	border: 1px solid var(--av-border);
+	border-radius: 5px;
+	padding: 2px 6px;
+}
+
+.app-topbar-actions {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	flex-shrink: 0;
+}
+.app-avatar {
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	background: var(--av-green);
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 700;
+	font-size: 0.9rem;
+}
+.app-username {
+	font-weight: 600;
+	font-size: 0.9rem;
+}
+.app-topbar-icon {
+	width: 36px;
+	height: 36px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	background: var(--av-card);
+	border: 1px solid var(--av-border);
+	color: var(--av-muted);
+}
+.app-topbar-icon:hover {
+	color: var(--av-ink);
+}
+.app-topbar-link {
+	font-size: 0.86rem;
+	font-weight: 600;
+	color: var(--av-ink);
+	padding: 8px 14px;
+}
+.app-topbar-link--primary {
+	background: var(--av-green);
+	color: #fff;
+	border-radius: 8px;
+}
+
+/* ===== Umumiy kartochka uslublari (Home va boshqa app sahifalari) ===== */
+.av-card {
+	background: var(--av-card);
+	border: 1px solid var(--av-border);
+	border-radius: 14px;
+}
+
+@media (max-width: 980px) {
+	.app-sidebar {
+		display: none;
+	}
+	.app-main {
+		padding: 18px;
+	}
+}
+/* Tugmalarni faqat yangi dizaynga (app-shell) o'tgan sahifalarda
+   yashil ranga o'zgartiramiz — eski (hali ko'chirilmagan) sahifalarga
+   tegmaymiz, shu bois ikkalasi ham o'zicha izchil ko'rinadi */
+.app-shell .primary-action {
+	background: linear-gradient(90deg, var(--av-green), #4a7a63);
+	border-color: var(--av-green);
+	box-shadow: 0 10px 24px rgba(47, 75, 60, 0.28);
+}
+.app-shell .secondary-action {
+	border-color: var(--av-border);
+	color: var(--av-ink);
+	background: var(--av-card);
+}
+.app-shell .secondary-action:hover {
+	background: var(--av-green-soft);
+	border-color: var(--av-green);
+}
+
+/* ===== O'NG PANEL (iqtibos, tezkor amallar) ===== */
+.app-right-rail {
+	width: 300px;
+	flex-shrink: 0;
+	padding: 22px 24px 60px 0;
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+}
+@media (max-width: 1240px) {
+	.app-right-rail {
+		display: none;
+	}
+}

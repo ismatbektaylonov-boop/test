@@ -26,6 +26,10 @@ const productSchema = new Schema(
 			type: String,
 			default: '', // masalan: /uploads/167...-kitob.jpg
 		},
+		productFile: {
+			type: String,
+			default: '',
+		},
 		productStatus: {
 			type: String,
 			enum: ProductStatus,

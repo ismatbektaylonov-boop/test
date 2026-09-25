@@ -1,0 +1,22 @@
+<header class="app-topbar">
+	<form class="app-search" action="/products" method="GET">
+		<span class="app-search-icon"><i class="fa-solid fa-magnifying-glass" style="color: rgb(47, 75, 60);"></i></span>
+		<input type="text" name="search" placeholder="Kutubxonangizdan qidiring..." />
+		<span class="app-search-kbd"><i class="fa-solid fa-terminal" style="color: rgb(47, 75, 60);"></i></span>
+	</form>
+
+	<div class="app-topbar-actions">
+		<% if (member) { %>
+			<span class="app-avatar">
+				<%= member.memberName.charAt(0).toUpperCase() %>
+			</span>
+			<span class="app-username">
+				<%= member.memberName %>
+			</span>
+			<a href="/logout" class="app-topbar-icon" title="Chiqish">⏻</a>
+			<% } else { %>
+				<a href="/login" class="app-topbar-link">Kirish</a>
+				<a href="/signup" class="app-topbar-link app-topbar-link--primary">Ro'yxatdan o'tish</a>
+				<% } %>
+	</div>
+</header>

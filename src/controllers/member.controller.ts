@@ -1,6 +1,9 @@
 import { NextFunction, Request, Response } from 'express'
+import path from 'path'
+import { MemberStatus } from '../libs/enums/member.enum'
 import { ProductGenre, ProductStatus } from '../libs/enums/product.enum'
 import MemberService from '../models/Member.service'
+import OrderService from '../models/Order.service'
 import ProductService from '../models/Product.service'
 
 class MemberController {
@@ -68,10 +71,59 @@ class MemberController {
 	) {
 		try {
 			const product = await ProductService.getProductById(req.params.id)
+
+			// Faqat shu kitobni hozir band qilib turgan (APPROVED so'rovi bor)
+			// a'zoga elektron nusxani o'qish tugmasi ko'rinadi
+			let canRead = false
+			if (
+				req.session.member?.memberStatus === MemberStatus.ACTIVE &&
+				product.productFile
+			) {
+				const approvedOrder = await OrderService.findApprovedOrder(
+					String(product._id),
+					req.session.member._id,
+				)
+				canRead = !!approvedOrder
+			}
+
 			res.render('product-detail', {
 				member: req.session.member,
 				product,
+				canRead,
 			})
+		} catch (err) {
+			next(err)
+		}
+	}
+
+	// GET /products/:id/read-file -> kitobni faqat o'qish uchun ko'rsatadi
+	public async readEbook(req: Request, res: Response, next: NextFunction) {
+		try {
+			if (
+				!req.session.member ||
+				req.session.member.memberStatus !== MemberStatus.ACTIVE
+			) {
+				return res.redirect('/login')
+			}
+
+			const product = await ProductService.getProductById(req.params.id)
+			if (!product.productFile) {
+				return res.status(404).send('Bu kitob uchun elektron nusxa yuklanmagan')
+			}
+
+			const approvedOrder = await OrderService.findApprovedOrder(
+				String(product._id),
+				req.session.member._id,
+			)
+			if (!approvedOrder) {
+				return res.status(403).send("Bu kitobni o'qish uchun ruxsatingiz yo'q")
+			}
+
+			const filename = path.basename(product.productFile)
+			const filePath = path.join(process.cwd(), 'uploads', filename)
+
+			res.setHeader('Content-Disposition', 'inline')
+			res.sendFile(filePath)
 		} catch (err) {
 			next(err)
 		}
@@ -98,6 +150,7 @@ class MemberController {
 				memberName: member.memberName,
 				memberEmail: member.memberEmail,
 				memberType: member.memberType,
+				memberStatus: member.memberStatus,
 			}
 			res.redirect('/')
 		} catch (err: any) {
@@ -121,12 +174,16 @@ class MemberController {
 				memberEmail,
 				memberPassword,
 			})
+			await new Promise<void>((resolve, reject) => {
+				req.session.regenerate(err => (err ? reject(err) : resolve()))
+			})
 
 			req.session.member = {
 				_id: String(member._id),
 				memberName: member.memberName,
 				memberEmail: member.memberEmail,
 				memberType: member.memberType,
+				memberStatus: member.memberStatus,
 			}
 			res.redirect('/')
 		} catch (err: any) {

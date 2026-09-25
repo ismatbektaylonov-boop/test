@@ -7,6 +7,7 @@ export interface Product {
 	productGenre: ProductGenre
 	productDesc?: string // kitob haqida ma'lumot
 	productImage?: string // /uploads/... yo'li
+	productFile?: string // /uploads/... yo'li
 	productStatus: ProductStatus
 	isRecommended: boolean
 	createdAt: Date
@@ -19,6 +20,7 @@ export interface ProductInput {
 	productGenre: ProductGenre
 	productDesc?: string
 	productImage?: string
+	productFile?: string
 	productStatus?: ProductStatus
 	isRecommended?: boolean
 }

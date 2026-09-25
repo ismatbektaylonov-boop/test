@@ -1,0 +1,90 @@
+<aside class="app-sidebar">
+	<a href="/" class="app-brand">
+		<span class="app-brand-icon"><i class="fa-solid fa-book-open" style="color: rgb(47, 75, 60);"></i></span>
+		<span class="app-brand-text">
+			<strong>MyLibrary</strong>
+			<small>Kitoblar · G'oyalar · Bilim</small>
+		</span>
+	</a>
+
+	<nav class="app-sidebar-nav" aria-label="Asosiy navigatsiya">
+		<a href="/" class="app-nav-item <%= active==='home' ? 'is-active' : '' %>">
+			<span class="app-nav-icon"><i class="fa-solid fa-house" style="color: rgb(47, 75, 60);"></i></span> Bosh sahifa
+		</a>
+		<a href="/products" class="app-nav-item <%= active==='products' ? 'is-active' : '' %>">
+			<span class="app-nav-icon"><i class="fa-solid fa-book" style="color: rgb(47, 75, 60);"></i></span> Kutubxona
+		</a>
+		<a href="/products#collections" class="app-nav-item <%= active==='collections' ? 'is-active' : '' %>">
+			<span class="app-nav-icon"><i class="fa-solid fa-layer-group" style="color: rgb(47, 75, 60);"></i></span>
+			To'plamlar
+		</a>
+		<% if (member) { %>
+			<a href="/favorites" class="app-nav-item <%= active==='favorites' ? 'is-active' : '' %>">
+				<span class="app-nav-icon"><i class="fa-solid fa-heart" style="color: rgb(47, 75, 60);"></i></span> Sevimlilar
+			</a>
+			<a href="/notes" class="app-nav-item <%= active==='notes' ? 'is-active' : '' %>">
+				<span class="app-nav-icon"><i class="fa-solid fa-clipboard-list" style="color: rgb(47, 75, 60);"></i></span>
+				Eslatmalar
+			</a>
+			<a href="/orders" class="app-nav-item <%= active==='orders' ? 'is-active' : '' %>">
+				<span class="app-nav-icon"><i class="fa-solid fa-file-import" style="color: rgb(47, 75, 60);"></i></span> Mening
+				ijaralarim
+			</a>
+			<% if (member.memberType==='ADMIN' ) { %>
+				<a href="/admin" class="app-nav-item <%= active==='admin' ? 'is-active' : '' %>">
+					<span class="app-nav-icon"><i class="fa-solid fa-gear" style="color: rgb(47, 75, 60);"></i></span> Boshqaruv
+					paneli
+				</a>
+				<% } %>
+					<% } %>
+	</nav>
+
+	<% if (typeof sidebarStats !=='undefined' && sidebarStats) { %>
+		<div class="app-sidebar-stats">
+			<div class="app-stats-head">
+				<span>Kutubxona statistikasi</span>
+				<a href="/products"><i class="fa-solid fa-circle-arrow-right" style="color: rgb(47, 75, 60);"></i></a>
+			</div>
+			<div class="app-stats-big">
+				<%= sidebarStats.totalBooks %>
+			</div>
+			<div class="app-stats-label">Jami kitoblar</div>
+			<div class="app-stats-row">
+				<div>
+					<strong>
+						<%= sidebarStats.availableBooks %>
+					</strong>
+					<span>Mavjud</span>
+				</div>
+				<div>
+					<strong>
+						<%= sidebarStats.currentlyBorrowed %>
+					</strong>
+					<span>Band</span>
+				</div>
+			</div>
+		</div>
+		<% } %>
+
+			<div class="app-sidebar-quick">
+				<div class="app-quick-head">Tezkor kirish</div>
+				<% if (member && member.memberType==='ADMIN' ) { %>
+					<a href="/admin/products/new" class="app-quick-item">
+						<span>+</span> Kitob qo'shish
+					</a>
+					<% } %>
+						<a href="/products" class="app-quick-item">
+							<span><i class="fa-solid fa-magnifying-glass" style="color: rgb(47, 75, 60);"></i></span> Qidirish
+						</a>
+			</div>
+
+			<div class="app-sidebar-footer">
+				<p>"Yaxshiroq kitoblar.<br />Kattaroq orzular."</p>
+			</div>
+			<div class="app-sidebar-footer1">
+				<p>"Yaxshiroq kitoblar.<br />Kattaroq orzular."</p>
+			</div>
+			<div class="app-sidebar-footer2">
+				<p>"Yaxshiroq kitoblar.<br />Kattaroq orzular."</p>
+			</div>
+</aside>

@@ -19,6 +19,7 @@ router.get('/logout', MemberController.logout)
 router.get('/orders', OrderController.getMyOrders)
 router.post('/orders', OrderController.createOrder)
 
+router.get('/products/:id/read-file', MemberController.readEbook)
 router.get('/products/:id', MemberController.getProductDetail)
 
 export default router

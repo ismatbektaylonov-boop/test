@@ -1,12 +1,8 @@
 .login-container {
 	align-items: center;
 	background:
-		radial-gradient(
-			circle at 12% 15%,
-			rgba(14, 116, 144, 0.22),
-			transparent 34%
-		),
-		linear-gradient(135deg, #f2f5f7 0%, #e4edf0 48%, #fafcfd 100%);
+		radial-gradient(circle at 12% 15%, rgba(47, 75, 60, 0.22), transparent 34%),
+		linear-gradient(135deg, #f7f3ec 0%, #f2ece0 48%, #fbf8f2 100%);
 	box-sizing: border-box;
 	display: flex;
 	justify-content: center;
@@ -29,14 +25,14 @@
 }
 
 .login-container a {
-	color: var(--amber);
+	color: var(--av-amber);
 	font-weight: 700;
 	text-decoration: none;
 }
 
 .login-container .login-frame {
 	background: rgba(255, 255, 255, 0.86);
-	border: 1px solid rgba(14, 116, 144, 0.22);
+	border: 1px solid rgba(47, 75, 60, 0.22);
 	border-radius: 20px;
 	box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
 	box-sizing: border-box;
@@ -55,7 +51,7 @@
 }
 .login-container .brand {
 	align-items: center;
-	color: var(--ink);
+	color: var(--av-ink);
 	display: inline-flex;
 	font-family: 'Fraunces', Georgia, serif;
 	font-size: 22px;
@@ -65,7 +61,7 @@
 }
 .login-container .brand-mark {
 	align-items: center;
-	background: var(--indigo);
+	background: var(--av-green);
 	border-radius: 8px;
 	color: #fff;
 	display: inline-flex;
@@ -76,11 +72,11 @@
 	width: 32px;
 }
 .login-container .eyebrow {
-	color: var(--amber);
+	color: var(--av-amber);
 	margin: 26px 0 8px;
 }
 .login-container h1 {
-	color: var(--ink);
+	color: var(--av-ink);
 	font-family: 'Fraunces', Georgia, serif;
 	font-size: 32px;
 	line-height: 1.1;
@@ -88,7 +84,7 @@
 	font-weight: 500;
 }
 .login-container .intro {
-	color: #4a6670;
+	color: var(--av-muted);
 	font-size: 14px;
 	line-height: 1.55;
 	margin: 12px 0 4px;
@@ -105,17 +101,17 @@
 	margin-top: 16px;
 }
 .login-container .login-input-container label {
-	color: var(--ink);
+	color: var(--av-ink);
 	font-size: 13px;
 	font-weight: 700;
 	margin-bottom: 6px;
 }
 .login-container .login-input-container input {
 	background: rgba(255, 255, 255, 0.96);
-	border: 1px solid var(--line);
+	border: 1px solid var(--av-border);
 	border-radius: 8px;
 	box-sizing: border-box;
-	color: var(--ink);
+	color: var(--av-ink);
 	font-size: 15px;
 	height: 50px;
 	padding: 0 15px;
@@ -124,12 +120,12 @@
 		box-shadow 160ms ease;
 }
 .login-container .login-input-container input:focus {
-	border-color: var(--amber);
-	box-shadow: 0 0 0 3px rgba(14, 116, 144, 0.22);
+	border-color: var(--av-amber);
+	box-shadow: 0 0 0 3px rgba(47, 75, 60, 0.22);
 	outline: none;
 }
 .login-container .login-btn {
-	background: linear-gradient(90deg, var(--indigo), var(--amber));
+	background: linear-gradient(90deg, var(--av-green), var(--av-amber));
 	border: 0;
 	border-radius: 8px;
 	color: #fff;
@@ -148,7 +144,7 @@
 	transform: translateY(-1px);
 }
 .login-container .login-footer {
-	color: var(--muted);
+	color: var(--av-muted);
 	display: flex;
 	flex-wrap: wrap;
 	font-size: 13px;

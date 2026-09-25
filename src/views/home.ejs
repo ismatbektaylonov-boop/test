@@ -1,104 +1,205 @@
-<%- include("includes/header", { pageTitle: "Bosh sahifa | MyLibrary" , extraCss: "home" }) %>
+<%- include("includes/header", { pageTitle: "MyLibrary — Bosh sahifa" , extraCss: "home" }) %>
 
-  <main class="home-container">
-    <div class="home-particles" data-home-particles aria-hidden="true"></div>
+  <div class="app-shell">
+    <%- include("includes/sidebar", { member, active: "home" , sidebarStats: stats }) %>
 
-    <%- include("includes/nav", { member, active: "home" }) %>
+      <main class="app-main">
+        <%- include("includes/topbar", { member }) %>
 
-      <section class="home-content" aria-labelledby="home-title">
-        <div class="home-intro">
-          <p class="home-kicker">MY LIBRARY</p>
-          <h1 id="home-title">Har bir kitob<br />o'z o'quvchisini<br />kutmoqda.</h1>
-          <p class="home-description">
-            Ro'yxatdan o'ting, yoqqan kitobingizni tanlang va ijaraga so'rov yuboring —
-            qolganini biz hal qilamiz.
-          </p>
-          <a class="home-cta" href="/products">Javonlarni ko'rish</a>
+          <section class="av-hero">
+            <p class="av-hero-eyebrow">
+              <%= (function () { var h=new Date().getHours(); return h < 12 ? "Xayrli tong" : h < 18 ? "Xayrli kun"
+                : "Xayrli kech" ; })() %>, <%= member ? member.memberName : "mehmon" %>.
+            </p>
+            <h1 class="av-hero-title">Shaxsiy to'plam — kitoblar,<br />g'oyalar &amp; <span>bilim</span>.</h1>
+            <p class="av-hero-sub">Kutubxonangizni kashf eting, yangi dunyolarni toping va o'qish
+              sayohatingizni kuzating.</p>
 
-          <div class="home-stats">
-            <div class="home-stat">
-              <strong>
-                <%= stats.totalBooks %>
-              </strong>
-              <span>nomdagi kitob</span>
-            </div>
-            <div class="home-stat">
-              <strong>
-                <%= stats.currentlyBorrowed %>
-              </strong>
-              <span>hozir o'qilmoqda</span>
-            </div>
-            <div class="home-stat">
-              <strong>
-                <%= stats.totalMembers %>
-              </strong>
-              <span>a'zo</span>
-            </div>
-          </div>
-        </div>
+            <form class="av-hero-search" action="/products" method="GET">
+              <span><i class="fa-solid fa-magnifying-glass" style="color: rgb(47, 75, 60);"></i></span>
+              <input type="text" name="search" placeholder="Kitoblaringizni qidiring..." />
+              <button type="submit" aria-label="Qidirish">→</button>
+            </form>
+          </section>
 
-        <div class="library-hero-frame">
-          <div class="library-hero-shelf">
-            <% products.slice(0, 4).forEach(function(p, i) { %>
-              <img src="<%= p.productImage %>" alt="<%= p.productName %>" class="library-hero-cover cover-<%= i %>" />
-              <% }); %>
-          </div>
-        </div>
-      </section>
-      <% if (recommended && recommended.length) { %>
-        <section class="recommend-section" aria-labelledby="recommend-title">
-          <div class="recommend-head">
-            <p class="eyebrow">SHAXSAN TAVSIYA QILAMAN</p>
-            <h2 id="recommend-title">Mening tavsiyalarim</h2>
-          </div>
-          <div class="recommend-marquee">
-            <div class="recommend-track">
-              <% [recommended, recommended].forEach(function(list) { %>
-                <% list.forEach(function(p) { %>
-                  <a href="/products/<%= p._id %>" class="recommend-card">
-                    <div class="recommend-cover">
-                      <% if (p.productImage) { %>
-                        <img src="<%= p.productImage %>" alt="<%= p.productName %>" loading="lazy" />
-                        <% } %>
-                          <span class="recommend-ribbon">★ Tavsiya</span>
-                    </div>
-                    <p class="recommend-title-text">
-                      <%= p.productName %>
-                    </p>
-                  </a>
-                  <% }); %>
-                    <% }); %>
+          <section class="av-section">
+            <div class="av-section-head">
+              <h2>Hozir o'qiyapman</h2>
+              <a href="/orders"><i class="fa-solid fa-circle-arrow-right" style="color: rgb(47, 75, 60);"></i></a>
             </div>
-          </div>
-        </section>
-        <% } %>
-          <section class="arrivals" aria-labelledby="arrivals-title">
-            <div class="arrivals-head">
-              <p class="eyebrow">YANGI QO'SHILGAN</p>
-              <h2 id="arrivals-title">Kutubxona javonidan</h2>
-              <a href="/products" class="arrivals-link">Barchasini ko'rish →</a>
-            </div>
-            <div class="arrivals-row">
-              <% products.forEach(function(p) { %>
-                <a href="/products?search=<%= encodeURIComponent(p.productName) %>" class="arrival-book">
-                  <img src="<%= p.productImage %>" alt="<%= p.productName %>" />
-                  <span class="arrival-title">
-                    <%= p.productName %>
-                  </span>
-                  <span class="arrival-author">
-                    <%= p.productAuthor %>
-                  </span>
-                </a>
-                <% }); %>
-                  <% if (products.length===0) { %>
-                    <p class="empty-note">Hozircha kitoblar mavjud emas.</p>
-                    <% } %>
+            <div class="av-reading-empty av-card">
+              <span class="av-reading-empty-icon"><i class="fa-solid fa-book-open"
+                  style="color: rgb(47, 75, 60);"></i></span>
+              <div>
+                <p class="av-reading-empty-title">Hali hech qanday kitobni "o'qiyapman" deb belgilamagansiz
+                </p>
+                <p class="av-reading-empty-sub">Bu funksiya tez orada qo'shiladi — hozircha kutubxonadan
+                  kitob tanlab, ijaraga oling.</p>
+              </div>
+              <a href="/products" class="secondary-action">Kutubxonani ko'rish</a>
             </div>
           </section>
-  </main>
 
+          <section class="av-stats-grid">
+            <div class="av-stat-card av-card">
+              <span class="av-stat-icon"><i class="fa-solid fa-book" style="color: rgb(47, 75, 60);"></i></span>
+              <div>
+                <strong>
+                  <%= stats.totalBooks %>
+                </strong>
+                <span>Jami kitoblar</span>
+              </div>
+            </div>
+            <div class="av-stat-card av-card">
+              <span class="av-stat-icon"><i class="fa-solid fa-square-check" style="color: rgb(47, 75, 60);"></i></span>
+              <div>
+                <strong>
+                  <%= stats.availableBooks %>
+                </strong>
+                <span>Mavjud</span>
+              </div>
+            </div>
+            <div class="av-stat-card av-card">
+              <span class="av-stat-icon"><i class="fa-solid fa-file-import" style="color: rgb(47, 75, 60);"></i></span>
+              <div>
+                <strong>
+                  <%= stats.currentlyBorrowed %>
+                </strong>
+                <span>Band</span>
+              </div>
+            </div>
+            <div class="av-stat-card av-card">
+              <span class="av-stat-icon"><i class="fa-solid fa-user" style="color: rgb(47, 75, 60);"></i></span>
+              <div>
+                <strong>
+                  <%= stats.totalMembers %>
+                </strong>
+                <span>A'zolar</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="av-section" id="collections">
+            <div class="av-section-head">
+              <h2>To'plamlaringiz</h2>
+              <a href="/products"><i class="fa-solid fa-circle-arrow-right" style="color: rgb(47, 75, 60);"></i></a>
+            </div>
+            <div class="av-collections-grid">
+              <% var genreImg={ "Badiiy" : "/img/genre-badiiy.jpg" , "Din" : "/img/genre-din.jpg" , "Tarix/Biografiya"
+                : "/img/genre-tarix.jpg" , "Ilmiy" : "/img/genre-ilmiy.jpg" , "Bolalar uchun" : "/img/genre-bolalar.jpg"
+                , "She'riyat" : "/img/genre-sheriyat.jpg" , "Boshqa" : "/img/genre-boshqa.jpg" }; %>
+                <% Object.keys(genreCounts).forEach(function(g) { %>
+                  <a href="/products?genre=<%= encodeURIComponent(g) %>" class="av-collection-tile" <% if (genreImg[g])
+                    { %>style="background-image:url('<%= genreImg[g] %>')"<% } %>>
+                        <% if (!genreImg[g]) { %>
+                          <span class="av-collection-emoji">📕</span>
+                          <% } %>
+                            <div class="av-collection-overlay">
+                              <strong>
+                                <%= g %>
+                              </strong>
+                              <span>
+                                <%= genreCounts[g] %> ta kitob
+                              </span>
+                            </div>
+                  </a>
+                  <% }); %>
+            </div>
+          </section>
+
+          <section class="av-section">
+            <div class="av-section-head">
+              <h2>So'nggi qo'shilganlar</h2>
+              <a href="/products">Barchasini ko'rish <i class="fa-solid fa-circle-arrow-right"
+                  style="color: rgb(47, 75, 60);"></i></a>
+            </div>
+            <div class="av-recent-row">
+              <% products.forEach(function(p) { %>
+                <a href="/products/<%= p._id %>" class="av-recent-card">
+                  <div class="av-recent-cover">
+                    <% if (p.productImage) { %>
+                      <img src="<%= p.productImage %>" alt="<%= p.productName %>" loading="lazy" />
+                      <% } else { %>
+                        <span><i class="fa-solid fa-book-open" style="color: rgb(47, 75, 60);"></i></span>
+                        <% } %>
+                  </div>
+                  <p class="av-recent-title">
+                    <%= p.productName %>
+                  </p>
+                  <p class="av-recent-author">
+                    <%= p.productAuthor || "" %>
+                  </p>
+                </a>
+                <% }); %>
+            </div>
+          </section>
+      </main>
+
+      <aside class="app-right-rail">
+        <div class="av-quote-card">
+          <p id="quoteText">"Kitob o'qigan odam ming marta yashaydi."</p>
+          <span id="quoteAuthor">— Jorj R. R. Martin</span>
+        </div>
+
+        <div class="av-quick-actions av-card">
+          <h3>Tezkor amallar</h3>
+          <% if (member && member.memberType==='ADMIN' ) { %>
+            <a href="/admin/products/new">+ Kitob qo'shish</a>
+            <a href="/admin/orders"><i class="fa-solid fa-clipboard-list" style="color: rgb(47, 75, 60);"></i>
+              So'rovlarni ko'rish</a>
+            <% } else { %>
+              <a href="/products"><i class="fa-solid fa-book" style="color: rgb(47, 75, 60);"></i> Kutubxonani
+                ko'rish</a>
+              <a href="/orders"><i class="fa-solid fa-file-import" style="color: rgb(47, 75, 60);"></i> Mening
+                ijaralarim</a>
+              <% } %>
+        </div>
+
+        <div class="av-motivation aside-motivation">
+          <span><i class="fa-brands fa-pagelines" style="color: rgb(47, 75, 60);"></i></span>
+          <p>Har kungi kichik qadamlar katta o'zgarishlarga olib keladi.</p>
+        </div>
+        <div class="av-motivation">
+          <span><i class="fa-brands fa-pagelines" style="color: rgb(47, 75, 60);"></i></span>
+          <p>O‘qilgan har bir kitob dunyoqarashni kengaytiradi.</p>
+        </div>
+        <div class="av-motivation">
+          <span><i class="fa-brands fa-pagelines" style="color: rgb(47, 75, 60);"></i></span>
+          <p>Bilim — inson bilan birga yuradigan boylik.</p>
+        </div>
+        <div class="av-motivation">
+          <span><i class="fa-brands fa-pagelines" style="color: rgb(47, 75, 60);"></i></span>
+          <p>O‘zingga sarflagan eng yaxshi vaqt — o‘qishga ajratilgan vaqt.</p>
+        </div>
+        <div class="av-motivation">
+          <span><i class="fa-brands fa-pagelines" style="color: rgb(47, 75, 60);"></i></span>
+          <p>Yaxshi kitob — yaxshi suhbatdosh.</p>
+        </div>
+        <div class="av-motivation">
+          <span><i class="fa-brands fa-pagelines" style="color: rgb(47, 75, 60);"></i></span>
+          <p>Bilim to‘planadi, donolik esa qo‘llanilganda paydo bo‘ladi.</p>
+        </div>
+        <div class="av-motivation">
+          <span><i class="fa-brands fa-pagelines" style="color: rgb(47, 75, 60);"></i></span>
+          <p>Bir yaxshi fikr butun kunni o‘zgartirishi mumkin.</p>
+        </div>
+      </aside>
+  </div>
+
+  <script>
+    const AV_QUOTES = [
+      { text: "Kitob o'qigan odam ming marta yashaydi.", author: "Jorj R. R. Martin" },
+      { text: "Kitoblar — qalbning ko'zgusidir.", author: "Noma'lum" },
+      { text: "Bugun o'qigan kitobing — ertangi kuchingdir.", author: "Noma'lum" },
+    ]
+    let avQuoteIdx = 0
+    setInterval(() => {
+      avQuoteIdx = (avQuoteIdx + 1) % AV_QUOTES.length
+      document.getElementById('quoteText').textContent = '"' + AV_QUOTES[avQuoteIdx].text + '"'
+      document.getElementById('quoteAuthor').textContent = '— ' + AV_QUOTES[avQuoteIdx].author
+    }, 6000);
+  </script>
   <script src="/js/main.js"></script>
-  <script src="/js/home.js"></script>
   </body>
 
   </html>

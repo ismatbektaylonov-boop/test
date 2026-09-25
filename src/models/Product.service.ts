@@ -2,24 +2,27 @@
 // admin panel orqali qo'shish/tahrirlash/o'chirish uchun zarur bo'lgani
 // sababli, boshqa service fayllar bilan bir xil uslubda qo'shildi.
 
+import { isValidObjectId } from 'mongoose'
 import { ProductStatus } from '../libs/enums/product.enum'
 import { Errors, HttpCode, Message } from '../libs/Errors'
 import { ProductInput, ProductSearchInput } from '../libs/types/product'
 import ProductModel from '../schema/Product.model'
-import { isValidObjectId } from 'mongoose'
 
 class ProductService {
 	public async getLibraryStats() {
-		const [totalBooks, currentlyBorrowed] = await Promise.all([
+		const [totalBooks, currentlyBorrowed, availableBooks] = await Promise.all([
 			ProductModel.countDocuments({
 				productStatus: { $ne: ProductStatus.HIDDEN },
 			}).exec(),
 			ProductModel.countDocuments({
 				productStatus: ProductStatus.BORROWED,
 			}).exec(),
+			ProductModel.countDocuments({
+				productStatus: ProductStatus.AVAILABLE,
+			}).exec(),
 		])
 
-		return { totalBooks, currentlyBorrowed }
+		return { totalBooks, currentlyBorrowed, availableBooks }
 	}
 
 	public async getProducts(input: ProductSearchInput) {

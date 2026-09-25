@@ -12,6 +12,7 @@ export interface LoggedInMember {
   memberName: string;
   memberEmail: string;
   memberType: string;
+  memberStatus: string;
 }
 
 declare module "express-session" {

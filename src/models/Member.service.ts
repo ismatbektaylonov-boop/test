@@ -1,4 +1,4 @@
-import { MemberType } from '../libs/enums/member.enum'
+import { MemberStatus, MemberType } from '../libs/enums/member.enum'
 import { Errors, HttpCode, Message } from '../libs/Errors'
 import { MemberLoginInput, MemberSignupInput } from '../libs/types/member'
 import MemberModel from '../schema/Member.model'
@@ -32,7 +32,7 @@ class MemberService {
 			.select('+memberPassword')
 			.exec()
 
-		if (!member) {
+		if (!member || member.memberStatus !== MemberStatus.ACTIVE) {
 			throw new Errors(HttpCode.UNAUTHORIZED, Message.WRONG_PASSWORD)
 		}
 
