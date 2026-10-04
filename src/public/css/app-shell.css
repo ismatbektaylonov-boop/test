@@ -341,3 +341,39 @@
 		display: none;
 	}
 }
+.app-footer {
+	margin-top: 36px;
+	padding: 16px 0 4px;
+	border-top: 1px solid var(--av-border);
+	text-align: center;
+	color: var(--av-muted);
+	font-size: 0.78rem;
+}
+.app-footer-social {
+	display: flex;
+	justify-content: center;
+	gap: 12px;
+	margin-bottom: 12px;
+}
+.app-social-btn {
+	width: 38px;
+	height: 38px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: var(--av-sidebar-bg);
+	color: var(--av-ink);
+	transition:
+		background-color 160ms ease,
+		transform 160ms ease;
+}
+.app-social-btn svg {
+	width: 17px;
+	height: 17px;
+}
+.app-social-btn:hover {
+	background: var(--av-green);
+	color: #fff;
+	transform: translateY(-2px);
+}

@@ -57,11 +57,11 @@
         </div>
       </section>
   </main>
+  <%- include("includes/footer") %>
+    <script>
+      window.CURRENT_MEMBER_TYPE = "<%= member.memberType %>";
+    </script>
+    <script src="/js/main.js"></script>
+    </body>
 
-  <script>
-    window.CURRENT_MEMBER_TYPE = "<%= member.memberType %>";
-  </script>
-  <script src="/js/main.js"></script>
-  </body>
-
-  </html>
+    </html>
